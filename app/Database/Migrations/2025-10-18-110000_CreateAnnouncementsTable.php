@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Database\Migrations;
+
+use CodeIgniter\Database\Migration;
+
+class CreateAnnouncementsTableFixed extends Migration
+{
+    public function up()
+    {
+        // Drop the existing table if it exists
+        $this->forge->dropTable('announcements', true);
+        
+        $this->forge->addField([
+            'id'        => ['type' => 'INT', 'constraint' => 5, 'unsigned' => true, 'auto_increment' => true],
+            'title'     => ['type' => 'VARCHAR', 'constraint' => 255],
+            'content'   => ['type' => 'TEXT'],
+            'created_at'=> ['type' => 'DATETIME', 'null' => true],
+        ]);
+        $this->forge->addPrimaryKey('id');
+        $this->forge->createTable('announcements');
+    }
+
+    public function down()
+    {
+        $this->forge->dropTable('announcements');
+    }
+}
