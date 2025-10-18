@@ -11,61 +11,8 @@
                 <div class="card-body">
                     <p class="lead">Welcome, <strong><?= esc($user['name']) ?></strong>!</p>
 
-                    <div class="row g-4 mb-4">
-                        <!-- Enrolled Courses -->
-                        <div class="col-12">
-                            <div class="card border-primary">
-                                <div class="card-header bg-primary text-white">
-                                    <h5 class="card-title mb-0">Enrolled Courses</h5>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="list-group list-group-flush" id="enrolled-list">
-                                        <?php if (!empty($enrolledCourses)): ?>
-                                            <?php foreach ($enrolledCourses as $course): ?>
-                                                <li class="list-group-item" data-course-id="<?= $course['id'] ?>">
-                                                    <strong><?= esc($course['title']) ?></strong><br>
-                                                    <small class="text-muted"><?= esc($course['description']) ?></small>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <li class="list-group-item text-muted" data-placeholder="1">No enrolled courses yet.</li>
-                                        <?php endif; ?>
-                                    </ul>
-                                </div>
-                        </div>
-
-                        
-                    </div>
-
-                    <!-- Available Courses -->
-                    <div class="card border-secondary mb-4">
-                        <div class="card-header bg-secondary text-white">
-                            <h5 class="card-title mb-0">Available Courses</h5>
-                        </div>
-                        <div class="card-body">
-                            <?php if (!empty($availableCourses)): ?>
-                                <?php $enrolledIds = !empty($enrolledCourses) ? array_column($enrolledCourses, 'id') : []; ?>
-                                <ul class="list-group">
-                                    <?php foreach ($availableCourses as $course): ?>
-                                        <?php $already = in_array($course['id'], $enrolledIds ?? [], true); ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center" data-course-id="<?= $course['id'] ?>">
-                                            <div>
-                                                <strong><?= esc($course['title']) ?></strong><br>
-                                                <small class="text-muted"><?= esc($course['description']) ?></small>
-                                            </div>
-                                            <button class="btn btn-sm <?= $already ? 'btn-secondary' : 'btn-outline-primary' ?> enroll-btn"
-                                                    data-course-id="<?= $course['id'] ?>"
-                                                    <?= $already ? 'disabled aria-disabled="true"' : '' ?>>
-                                                <?= $already ? 'Enrolled' : 'Enroll' ?>
-                                            </button>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php else: ?>
-                                <p class="text-muted">No available courses.</p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                    
+                    
                 </div>
             </div>
         </div>

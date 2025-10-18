@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use CodeIgniter\Controller;
-use App\Models\EnrollmentModel;
+
 
 class Auth extends Controller
 {
@@ -113,28 +113,19 @@ class Auth extends Controller
             return redirect()->to(base_url('login'));
         }
 
-        // User is logged in, show dashboard
-        $data = [
-            'user' => [
-                'name' => session()->get('name'),
-                'email' => session()->get('email'),
-                'role' => session()->get('role')
-            ]
+        // Get user data from session
+        $userData = [
+            'id' => session()->get('user_id'),
+            'name' => session()->get('name'),
+            'email' => session()->get('email'),
+            'role' => session()->get('role')
         ];
 
-        // If student, prepare enrolled and available courses
-        if (session()->get('role') === 'student') {
-            $userId = (int) session()->get('user_id');
-            $enrollments = new EnrollmentModel();
-            $enrolledCourses = $enrollments->getUserEnrollments($userId);
-
-            $db = db_connect();
-            // Show ALL courses; the view will disable buttons for already-enrolled items
-            $availableCourses = $db->table('courses')->get()->getResultArray();
-
-            $data['enrolledCourses'] = $enrolledCourses;
-            $data['availableCourses'] = $availableCourses;
-        }
+        // Prepare data for the view
+        $data = [
+            'user' => $userData,
+            'title' => 'Dashboard - ' . ucfirst($userData['role'] ?? 'User') . ' Panel'
+        ];
 
         return view('auth/dashboard', $data);
     }

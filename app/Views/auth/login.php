@@ -3,7 +3,6 @@
 <?= $this->section('content') ?>
 <div class="auth-form">
     <h2>Welcome Back</h2>
-    <p style="text-align: center; color: #6B7280; margin-bottom: 1.5rem;">Sign in to continue your educational journey</p>
     
     <?php if(session()->getFlashdata('success')): ?>
         <div class="alert alert-success">
@@ -37,9 +36,5 @@
         <button type="submit" class="btn btn-primary w-100">Sign In</button>
     </form>
     
-    <div class="text-center">
-        <p style="margin-bottom: 0.5rem;">New to our platform?</p>
-        <a href="<?= site_url('register') ?>" style="color: #2563EB; text-decoration: none; font-weight: 600;">Create your account here</a>
-    </div>
 </div>
 <?= $this->endSection() ?>
