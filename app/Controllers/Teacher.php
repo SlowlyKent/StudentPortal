@@ -14,16 +14,20 @@ class Teacher extends Controller
             return redirect()->to(base_url('login'));
         }
 
-        $data = [
-            'title' => 'Teacher Dashboard',
-            'user' => [
-                'name' => session()->get('name'),
-                'email' => session()->get('email'),
-                'role' => session()->get('role')
-            ]
+        // Get user data for the view
+        $userData = [
+            'id' => session()->get('user_id'),
+            'name' => session()->get('name'),
+            'email' => session()->get('email'),
+            'role' => session()->get('role')
         ];
 
-        return view('teacher', $data);
+        // Prepare data for the view
+        $data = [
+            'user' => $userData,
+            'title' => 'Teacher Dashboard'
+        ];
+
+        return view('teacher_dashboard', $data);
     }
 }
-
