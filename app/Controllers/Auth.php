@@ -83,8 +83,18 @@ class Auth extends Controller
                     ]);
                     $session->setFlashdata('success', 'Welcome, ' . $user['name'] . '!');
                     
-                    // Redirect everyone to unified dashboard (as per teacher requirements)
-                    return redirect()->to(base_url('dashboard'));
+                    // Redirect users based on their role
+                    $userRole = $user['role'];
+                    switch ($userRole) {
+                        case 'student':
+                            return redirect()->to(base_url('announcements'));
+                        case 'teacher':
+                            return redirect()->to(base_url('teacher/dashboard'));
+                        case 'admin':
+                            return redirect()->to(base_url('admin/dashboard'));
+                        default:
+                            return redirect()->to(base_url('announcements'));
+                    }
                 } else {
                     $session->setFlashdata('error', 'Invalid login credentials.');
                 }

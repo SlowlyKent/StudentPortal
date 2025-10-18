@@ -16,5 +16,18 @@ $routes->get('logout', 'Auth::logout');
 // Dashboards Routes
 $routes->get('dashboard', 'Auth::dashboard');
 
+// Announcements Routes
+$routes->get('announcements', 'Announcement::index');
+
+// Teacher Routes (protected by roleauth filter)
+$routes->group('teacher', ['filter' => 'roleauth'], function($routes) {
+    $routes->get('dashboard', 'Teacher::dashboard');
+});
+
+// Admin Routes (protected by roleauth filter)
+$routes->group('admin', ['filter' => 'roleauth'], function($routes) {
+    $routes->get('dashboard', 'Admin::dashboard');
+});
+
 
 
